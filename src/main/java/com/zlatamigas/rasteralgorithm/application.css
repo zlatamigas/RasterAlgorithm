@@ -1,0 +1,122 @@
+#chart-line .default-color0.chart-series-line {
+    -fx-stroke: transparent;
+}
+
+#chart-line .default-color1.chart-series-line {
+    -fx-stroke: red;
+}
+
+#chart-line .default-color0.chart-line-symbol {
+    -fx-background-color: #a9e200;
+    -fx-scale-x: 2;
+    -fx-scale-y: 2;
+    -fx-shape: "M0,0 L0,1 L1,1 L1,0 Z";
+}
+
+#chart-line .default-color1.chart-line-symbol {
+    -fx-background-color: transparent, transparent;
+}
+
+
+#chart-circle .default-color0.chart-series-line {
+    -fx-stroke: transparent;
+}
+
+#chart-circle .default-color1.chart-series-line, #chart-circle .default-color2.chart-series-line {
+    -fx-stroke: red;
+}
+
+#chart-circle .default-color0.chart-line-symbol {
+    -fx-background-color: #a9e200;
+    -fx-scale-x: 2;
+    -fx-scale-y: 2;
+    -fx-shape: "M0,0 L0,1 L1,1 L1,0 Z";
+}
+
+#chart-circle .default-color1.chart-line-symbol, #chart-circle .default-color2.chart-line-symbol {
+    -fx-background-color: transparent, transparent;
+}
+
+
+
+.root {
+    -fx-background-color: linear-gradient(to right, #232526, #414345);
+    -hlight-gradient: linear-gradient(to bottom, #fff9a4, #ffe28a);
+
+    -primary: rgba(255, 255, 255, 0.55);
+    -secondary: #ffef63;
+    -tertiary: #fcc200;
+    -tertiary-armed: #FDDD71;
+}
+
+.highlight-rectangle {
+    -fx-background-color: derive(-primary, 50%);
+    -fx-background-radius: 5px;
+}
+
+.root .label{
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.2em;
+}
+
+.text-field {
+    -fill: white;
+    -fx-background-color: -fill;
+}
+
+.button {
+    -fill: white;
+
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+
+    -fx-background-color: -fill;
+}
+
+.button:hover {
+    -fill: -tertiary;
+}
+
+.button:armed {
+    -fill: -tertiary-armed;
+}
+
+.text-field {
+    -fx-accent: -tertiary-armed ;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.tab-pane {
+    -fx-background-color: linear-gradient(to right, #474b4b, #565b5c);
+    -fx-border-color: #e6e6e6;
+}
+.tab {
+    -fx-background-color: #333333;
+}
+.tab-pane>*.tab-header-area>*.tab-header-background {
+    -fx-background-color: -fx-text-box-border, #333333;
+}
+.tab-label {
+    -fx-text-fill: -tertiary;
+}
+.tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+}
+.tab:selected {
+    -fx-background-color: -tertiary;
+}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-radius: 0px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: -tertiary;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: #ffffff;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
