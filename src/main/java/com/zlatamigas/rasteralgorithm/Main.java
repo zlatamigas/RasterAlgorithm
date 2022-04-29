@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static String APP_NAME = "Raster algorithm";
-    private static String APP_PAGE = "sample.fxml";
-    private static String STYLESHEET = "application.css";
-    private static String ICON = "icon.png";
+    private static String APP_PAGE = "/fxml/app.fxml";
+    private static String STYLESHEET = "/view/application.css";
+    private static String ICON = "/view/icon.png";
 
     @Override
     public void start(Stage primaryStage) throws Exception{

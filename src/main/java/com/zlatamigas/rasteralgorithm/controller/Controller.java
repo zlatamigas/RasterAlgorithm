@@ -6,7 +6,6 @@ import com.zlatamigas.rasteralgorithm.service.RasterAlgorithm;
 import com.zlatamigas.rasteralgorithm.service.impl.RasterAlgorithmImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.TextField;
@@ -28,10 +27,17 @@ import static javafx.scene.chart.XYChart.Series;
 
 public class Controller implements Initializable {
 
-    private static final int sizeAxis = 20;
-    private static final int stepAxis = 1;
-    private static final NumberAxis xAxis = new NumberAxis(0, sizeAxis, stepAxis);
-    private static final NumberAxis yAxis = new NumberAxis(0, sizeAxis, stepAxis);
+    private static final String COORDINATE_REGEX = "(([1-9]\\d{0,6})|0)?(\\.\\d{0,3})?";
+    private static final String DOT = ".";
+    private static final String AXIS_X_LABEL = "x";
+    private static final String AXIS_Y_LABEL = "Y";
+    private static final String CHART_LINE_STYLE_ID = "chart-line";
+    private static final String CHART_CIRCLE_STYLE_ID = "chart-circle";
+
+    private static final double MAX_COORDINATE = 999999.999;
+    private static final int CHART_SIZE = 500;
+    private static final int AXIS_SIZE = 20;
+    private static final int AXIS_STEP = 1;
 
     public Pane idCharPane;
     public TextField idTVStartX;
@@ -53,16 +59,16 @@ public class Controller implements Initializable {
 
         rasterAlgorithm = new RasterAlgorithmImpl();
 
-        Pattern validDouble = Pattern.compile("(([1-9]\\d*)|0)?(\\.\\d*)?");
+        Pattern validCoordinate = Pattern.compile(COORDINATE_REGEX);
 
         UnaryOperator<TextFormatter.Change> filter = c -> {
             String text = c.getControlNewText();
-            return validDouble.matcher(text).matches() ? c : null;
+            return validCoordinate.matcher(text).matches() ? c : null;
         };
         StringConverter<Double> converter = new StringConverter<Double>() {
             @Override
             public Double fromString(String s) {
-                return s.isEmpty() || ".".equals(s) ? 0.0 : Double.valueOf(s);
+                return s.isEmpty() || DOT.equals(s) ? 0.0 : Double.parseDouble(s);
             }
 
             @Override
@@ -79,11 +85,14 @@ public class Controller implements Initializable {
         idTVCenterY.setTextFormatter(new TextFormatter<>(converter, 0.0, filter));
         idTVRadius.setTextFormatter(new TextFormatter<>(converter, 0.0, filter));
 
-        xAxis.setLabel("x");
-        yAxis.setLabel("y");
+        NumberAxis xAxis = new NumberAxis(0, AXIS_SIZE, AXIS_STEP);
+        xAxis.setLabel(AXIS_X_LABEL);
+        final NumberAxis yAxis = new NumberAxis(0, AXIS_SIZE, AXIS_STEP);
+        yAxis.setLabel(AXIS_Y_LABEL);
+
         chart = new LineChart<>(xAxis, yAxis);
         chart.setLegendVisible(false);
-        chart.setPrefSize(500, 500);
+        chart.setPrefSize(CHART_SIZE, CHART_SIZE);
         chart.setAnimated(false);
         idCharPane.getChildren().add(chart);
     }
@@ -95,7 +104,6 @@ public class Controller implements Initializable {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
 
     public void onSubmitStep(ActionEvent actionEvent) {
 
@@ -147,25 +155,25 @@ public class Controller implements Initializable {
     public void onSubmitBresenhamCircle(ActionEvent actionEvent) {
 
         chart.getData().clear();
-        chart.setId("chart-circle");
+        chart.setId(CHART_CIRCLE_STYLE_ID);
 
-        double centerX = Integer.MAX_VALUE;
-        double centerY = Integer.MAX_VALUE;
-        double radius = Integer.MAX_VALUE;
+        double centerX = MAX_COORDINATE;
+        double centerY = MAX_COORDINATE;
+        double radius = MAX_COORDINATE;
         try {
             centerX = Double.parseDouble(idTVCenterX.getText());
-        } catch (NumberFormatException e){
-
+        } catch (NumberFormatException e) {
+            idTVCenterX.setText(Double.toString(MAX_COORDINATE));
         }
         try {
             centerY = Double.parseDouble(idTVCenterY.getText());
-        } catch (NumberFormatException e){
-
+        } catch (NumberFormatException e) {
+            idTVCenterY.setText(Double.toString(MAX_COORDINATE));
         }
         try {
             radius = Double.parseDouble(idTVRadius.getText());
-        } catch (NumberFormatException e){
-
+        } catch (NumberFormatException e) {
+            idTVRadius.setText(Double.toString(MAX_COORDINATE));
         }
 
 
@@ -211,7 +219,7 @@ public class Controller implements Initializable {
     private void refreshChart(List<Data<Number, Number>> pixels, List<Data<Number, Number>> line) {
 
         chart.getData().clear();
-        chart.setId("chart-line");
+        chart.setId(CHART_LINE_STYLE_ID);
 
         Series pixelSeries = new Series();
         pixelSeries.getData().addAll(pixels);
