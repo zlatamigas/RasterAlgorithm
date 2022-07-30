@@ -7,7 +7,7 @@ Windows App, implementing base raster algorithms:
 * Bresenham's line algorithm,
 * Bresenham's circle algorithm.
 
-## Realisation
+## Usage
 <p align="center">
-  <kbd> <img alt="RasterAlgorithm" src="https://user-images.githubusercontent.com/64004682/166001356-e079743e-b683-41df-a5f4-a255f096ffee.gif" width="1000" style="border-radius:10px"\></kbd> 
+  <kbd> <img alt="RasterAlgorithm" src="https://user-images.githubusercontent.com/64004682/166001356-e079743e-b683-41df-a5f4-a255f096ffee.gif" width="100%" style="border-radius:10px"\></kbd> 
 </p>
